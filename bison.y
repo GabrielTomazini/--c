@@ -28,6 +28,7 @@ void yyerror(char *s);
 %token IF
 %token WHILE
 %token CHAR
+%token STRING
 %token INT
 %token FLOAT
 %token PRINTF
@@ -45,7 +46,9 @@ void yyerror(char *s);
 %%
 
 codigos : codigo 
-        | codigo codigos;
+        | codigo codigos
+        ;
+
 codigo : atrib
        | laco
        | condicional
@@ -58,22 +61,29 @@ codigo : atrib
 atrib : ID ATRIB expr PEV 
       | ID LCOLCHETES NUM RCOLCHETES ATRIB expr PEV
       ;
+
 expr : expr MAIS termo
      | expr MENOS termo
-     | termo ;
+     | termo 
+     ;
+
 termo : termo DIV fator
       | termo PORCENTO fator
-      | fator ;
+      | fator 
+      ;
+
 fator : ID
       | NUM
       | LETRA
       | LPAR expr RPAR
-      | LCHAVES expr RCHAVES;
+      | LCHAVES expr RCHAVES
+      ;
 
 condicional : IF LPAR condicao RPAR LCHAVES codigos RCHAVES
             | IF LPAR condicao RPAR codigo
             | IF LPAR condicao RPAR LCHAVES codigos RCHAVES ELSE LCHAVES codigos RCHAVES
-            | IF LPAR condicao RPAR LCHAVES codigos RCHAVES ELSE codigo;
+            | IF LPAR condicao RPAR LCHAVES codigos RCHAVES ELSE codigos
+            ;
 
 condicao : ID
          | ID comparacao expr
@@ -83,10 +93,12 @@ comparacao : IGUAL
            | MAIOR IGUAL
            | MENOR IGUAL
            | MAIOR
-           | MENOR;
+           | MENOR
+           ;
 
 cremento : MAISMAIS
-         | MENOSMENOS;
+         | MENOSMENOS
+         ;
 
 laco : FOR LPAR atrib fator comparacao fator PEV ID cremento RPAR LCHAVES codigos RCHAVES
      | FOR LPAR atrib fator comparacao fator PEV ID cremento RPAR codigos PEV
@@ -96,19 +108,21 @@ laco : FOR LPAR atrib fator comparacao fator PEV ID cremento RPAR LCHAVES codigo
 
 declara : tipo ID PEV
         | tipo ID LCOLCHETES NUM RCOLCHETES PEV
+        | tipo ID ATRIB ASPASDUPLAS fatores ASPASDUPLAS PEV
         | tipo atrib
         ;
 
 tipo : CHAR
      | INT
-     | FLOAT;
+     | FLOAT
+     | STRING
+     ;
 
 print : PRINTF LPAR mensagem RPAR PEV
       ;
 
 mensagem : ASPASDUPLAS fatores ASPASDUPLAS
          ;
-
 
 fatores : fator fatores
         | fator
@@ -121,7 +135,6 @@ read : SCANF LPAR mensagem VIRGULA ID RPAR PEV
 comentario : ABRECOMENTARIO fatores FECHACOMENTARIO
            | BARRABARRA fatores 
            ;
-
 
 %%
 

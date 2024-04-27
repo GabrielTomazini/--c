@@ -31,6 +31,7 @@
 "//" { return BARRABARRA;}
 "printf" { return PRINTF; }
 "scanf" { return SCANF; }
+"string" {return STRING;}
 "int" { return INT; }
 "float" { return FLOAT; }
 "char" { return CHAR; }
