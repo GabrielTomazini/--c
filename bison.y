@@ -19,6 +19,9 @@ void yyerror(char *s);
 %token RCHAVES
 %token ELSE
 %token FOR
+%token AND
+%token OR
+%token NOT
 %token LETRA
 %token NUM
 %token ID
@@ -86,7 +89,11 @@ condicional : IF LPAR condicao RPAR LCHAVES codigos RCHAVES
             ;
 
 condicao : ID
+         | LPAR ID RPAR
          | ID comparacao expr
+         | LPAR ID comparacao expr RPAR
+         | condicao AND condicao
+         | condicao OR condicao
          ;
 
 comparacao : IGUAL 

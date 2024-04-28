@@ -18,6 +18,9 @@
 ")" { return RPAR; }
 ";" { return PEV; }
 "/" { return DIV; }
+"&&" {return AND;}
+"||" {return OR;}
+"\!" {return NOT;}
 "++" { return MAISMAIS; }
 "--" { return MENOSMENOS; }
 "{" { return LCHAVES; }
