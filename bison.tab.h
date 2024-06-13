@@ -58,47 +58,58 @@ extern int yydebug;
     MENOS = 259,                   /* MENOS  */
     MENOR = 260,                   /* MENOR  */
     MAIOR = 261,                   /* MAIOR  */
-    PORCENTO = 262,                /* PORCENTO  */
-    LPAR = 263,                    /* LPAR  */
-    RPAR = 264,                    /* RPAR  */
-    PEV = 265,                     /* PEV  */
-    MAISMAIS = 266,                /* MAISMAIS  */
-    MENOSMENOS = 267,              /* MENOSMENOS  */
-    LCHAVES = 268,                 /* LCHAVES  */
-    RCHAVES = 269,                 /* RCHAVES  */
-    ELSE = 270,                    /* ELSE  */
-    FOR = 271,                     /* FOR  */
-    AND = 272,                     /* AND  */
-    OR = 273,                      /* OR  */
-    NOT = 274,                     /* NOT  */
-    LETRA = 275,                   /* LETRA  */
-    NUM = 276,                     /* NUM  */
-    ID = 277,                      /* ID  */
-    IGUAL = 278,                   /* IGUAL  */
-    ATRIB = 279,                   /* ATRIB  */
-    DIV = 280,                     /* DIV  */
-    IF = 281,                      /* IF  */
-    WHILE = 282,                   /* WHILE  */
-    CHAR = 283,                    /* CHAR  */
-    STRING = 284,                  /* STRING  */
-    INT = 285,                     /* INT  */
-    FLOAT = 286,                   /* FLOAT  */
-    PRINTF = 287,                  /* PRINTF  */
-    ASPASDUPLAS = 288,             /* ASPASDUPLAS  */
-    VIRGULA = 289,                 /* VIRGULA  */
-    SCANF = 290,                   /* SCANF  */
-    ABRECOMENTARIO = 291,          /* ABRECOMENTARIO  */
-    FECHACOMENTARIO = 292,         /* FECHACOMENTARIO  */
-    LCOLCHETES = 293,              /* LCOLCHETES  */
-    RCOLCHETES = 294,              /* RCOLCHETES  */
-    BARRABARRA = 295               /* BARRABARRA  */
+    MENORIGUAL = 262,              /* MENORIGUAL  */
+    MAIORIGUAL = 263,              /* MAIORIGUAL  */
+    PORCENTO = 264,                /* PORCENTO  */
+    LPAR = 265,                    /* LPAR  */
+    RPAR = 266,                    /* RPAR  */
+    PEV = 267,                     /* PEV  */
+    MAISMAIS = 268,                /* MAISMAIS  */
+    MENOSMENOS = 269,              /* MENOSMENOS  */
+    LCHAVES = 270,                 /* LCHAVES  */
+    RCHAVES = 271,                 /* RCHAVES  */
+    ELSE = 272,                    /* ELSE  */
+    FOR = 273,                     /* FOR  */
+    AND = 274,                     /* AND  */
+    OR = 275,                      /* OR  */
+    NOT = 276,                     /* NOT  */
+    NUM = 277,                     /* NUM  */
+    ID = 278,                      /* ID  */
+    IGUAL = 279,                   /* IGUAL  */
+    ATRIB = 280,                   /* ATRIB  */
+    DIFERENTE = 281,               /* DIFERENTE  */
+    DIV = 282,                     /* DIV  */
+    MULT = 283,                    /* MULT  */
+    IF = 284,                      /* IF  */
+    WHILE = 285,                   /* WHILE  */
+    CHAR = 286,                    /* CHAR  */
+    STRING = 287,                  /* STRING  */
+    INT = 288,                     /* INT  */
+    FLOAT = 289,                   /* FLOAT  */
+    PRINTF = 290,                  /* PRINTF  */
+    ASPASDUPLAS = 291,             /* ASPASDUPLAS  */
+    VIRGULA = 292,                 /* VIRGULA  */
+    SCANF = 293,                   /* SCANF  */
+    LCOLCHETES = 294,              /* LCOLCHETES  */
+    RCOLCHETES = 295,              /* RCOLCHETES  */
+    ESPECIAL = 296                 /* ESPECIAL  */
   };
   typedef enum yytokentype yytoken_kind_t;
 #endif
 
 /* Value type.  */
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
-typedef int YYSTYPE;
+union YYSTYPE
+{
+#line 39 "bison.y"
+
+    char *str_val;
+    int int_val;
+
+#line 110 "bison.tab.h"
+
+};
+typedef union YYSTYPE YYSTYPE;
 # define YYSTYPE_IS_TRIVIAL 1
 # define YYSTYPE_IS_DECLARED 1
 #endif

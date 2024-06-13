@@ -1,0 +1,1664 @@
+Terminais sem uso na gramática
+
+    LETRA
+    ABRECOMENTARIO
+    FECHACOMENTARIO
+    BARRABARRA
+
+
+Gramática
+
+    0 $accept: codigos $end
+
+    1 codigos: codigo
+    2        | codigo codigos
+
+    3 codigo: atrib
+    4       | laco
+    5       | condicional
+    6       | declara
+    7       | print
+    8       | read
+
+    9 atrib: ID ATRIB expr PEV
+   10      | ID LCOLCHETES expr RCOLCHETES ATRIB expr PEV
+
+   11 expr: expr MAIS termo
+   12     | expr MENOS termo
+   13     | termo
+
+   14 termo: termo DIV fator
+   15      | termo MULT fator
+   16      | termo PORCENTO fator
+   17      | fator
+
+   18 fator: ID
+   19      | NUM
+   20      | LPAR expr RPAR
+   21      | ID LCOLCHETES expr RCOLCHETES
+
+   22 condicional: IF LPAR condicoes RPAR LCHAVES codigos RCHAVES
+   23            | IF LPAR condicoes RPAR codigo
+   24            | IF LPAR condicoes RPAR LCHAVES codigos RCHAVES ELSE LCHAVES codigos RCHAVES
+   25            | IF LPAR condicoes RPAR LCHAVES codigos RCHAVES ELSE codigo
+
+   26 condicoes: condicao
+   27          | condicao OR condicoes
+   28          | condicao AND condicoes
+   29          | NOT condicoes
+
+   30 condicao: expr comparacao expr
+   31         | expr
+
+   32 comparacao: IGUAL
+   33           | NOT ATRIB
+   34           | MAIORIGUAL
+   35           | MENORIGUAL
+   36           | MAIOR
+   37           | MENOR
+
+   38 cremento: MAISMAIS
+   39         | MENOSMENOS
+
+   40 laco: FOR LPAR atrib condicoes PEV ID cremento RPAR LCHAVES codigos RCHAVES
+   41     | FOR LPAR atrib condicoes PEV ID cremento RPAR codigo
+   42     | WHILE LPAR condicoes RPAR LCHAVES codigos RCHAVES
+
+   43 declara: tipo ID PEV
+   44        | tipo ID LCOLCHETES NUM RCOLCHETES PEV
+   45        | tipo ID ATRIB expr PEV
+
+   46 tipo: CHAR
+   47     | INT
+   48     | FLOAT
+   49     | STRING
+
+   50 mensagens: mensagem mensagens
+   51          | mensagem
+
+   52 mensagem: fator
+   53         | ESPECIAL
+   54         | VIRGULA
+   55         | NOT
+   56         | PORCENTO
+   57         | MULT
+   58         | AND
+   59         | OR
+
+   60 print: PRINTF LPAR ASPASDUPLAS mensagens ASPASDUPLAS RPAR PEV
+   61      | PRINTF LPAR ASPASDUPLAS mensagens ASPASDUPLAS VIRGULA expr RPAR PEV
+   62      | PRINTF LPAR expr RPAR PEV
+
+   63 read: SCANF LPAR mensagem VIRGULA ID RPAR PEV
+   64     | SCANF LPAR ID RPAR PEV
+
+
+Terminais, com as regras onde eles aparecem
+
+    $end (0) 0
+    error (256)
+    MAIS (258) 11
+    MENOS (259) 12
+    MENOR (260) 37
+    MAIOR (261) 36
+    MENORIGUAL (262) 35
+    MAIORIGUAL (263) 34
+    PORCENTO (264) 16 56
+    LPAR (265) 20 22 23 24 25 40 41 42 60 61 62 63 64
+    RPAR (266) 20 22 23 24 25 40 41 42 60 61 62 63 64
+    PEV (267) 9 10 40 41 43 44 45 60 61 62 63 64
+    MAISMAIS (268) 38
+    MENOSMENOS (269) 39
+    LCHAVES (270) 22 24 25 40 42
+    RCHAVES (271) 22 24 25 40 42
+    ELSE (272) 24 25
+    FOR (273) 40 41
+    AND (274) 28 58
+    OR (275) 27 59
+    NOT (276) 29 33 55
+    LETRA (277)
+    NUM (278) 19 44
+    ID (279) 9 10 18 21 40 41 43 44 45 63 64
+    IGUAL (280) 32
+    ATRIB (281) 9 10 33 45
+    DIV (282) 14
+    MULT (283) 15 57
+    IF (284) 22 23 24 25
+    WHILE (285) 42
+    CHAR (286) 46
+    STRING (287) 49
+    INT (288) 47
+    FLOAT (289) 48
+    PRINTF (290) 60 61 62
+    ASPASDUPLAS (291) 60 61
+    VIRGULA (292) 54 61 63
+    SCANF (293) 63 64
+    ABRECOMENTARIO (294)
+    FECHACOMENTARIO (295)
+    LCOLCHETES (296) 10 21 44
+    RCOLCHETES (297) 10 21 44
+    BARRABARRA (298)
+    ESPECIAL (299) 53
+
+
+Não terminais com as regras onde eles aparecem
+
+    $accept (45)
+        à esquerda: 0
+    codigos (46)
+        à esquerda: 1 2
+        à direita: 0 2 22 24 25 40 42
+    codigo (47)
+        à esquerda: 3 4 5 6 7 8
+        à direita: 1 2 23 25 41
+    atrib (48)
+        à esquerda: 9 10
+        à direita: 3 40 41
+    expr (49)
+        à esquerda: 11 12 13
+        à direita: 9 10 11 12 20 21 30 31 45 61 62
+    termo (50)
+        à esquerda: 14 15 16 17
+        à direita: 11 12 13 14 15 16
+    fator (51)
+        à esquerda: 18 19 20 21
+        à direita: 14 15 16 17 52
+    condicional (52)
+        à esquerda: 22 23 24 25
+        à direita: 5
+    condicoes (53)
+        à esquerda: 26 27 28 29
+        à direita: 22 23 24 25 27 28 29 40 41 42
+    condicao (54)
+        à esquerda: 30 31
+        à direita: 26 27 28
+    comparacao (55)
+        à esquerda: 32 33 34 35 36 37
+        à direita: 30
+    cremento (56)
+        à esquerda: 38 39
+        à direita: 40 41
+    laco (57)
+        à esquerda: 40 41 42
+        à direita: 4
+    declara (58)
+        à esquerda: 43 44 45
+        à direita: 6
+    tipo (59)
+        à esquerda: 46 47 48 49
+        à direita: 43 44 45
+    mensagens (60)
+        à esquerda: 50 51
+        à direita: 50 60 61
+    mensagem (61)
+        à esquerda: 52 53 54 55 56 57 58 59
+        à direita: 50 51 63
+    print (62)
+        à esquerda: 60 61 62
+        à direita: 7
+    read (63)
+        à esquerda: 63 64
+        à direita: 8
+
+
+Estado 0
+
+    0 $accept: . codigos $end
+
+    FOR     deslocar, e ir ao estado 1
+    ID      deslocar, e ir ao estado 2
+    IF      deslocar, e ir ao estado 3
+    WHILE   deslocar, e ir ao estado 4
+    CHAR    deslocar, e ir ao estado 5
+    STRING  deslocar, e ir ao estado 6
+    INT     deslocar, e ir ao estado 7
+    FLOAT   deslocar, e ir ao estado 8
+    PRINTF  deslocar, e ir ao estado 9
+    SCANF   deslocar, e ir ao estado 10
+
+    codigos      ir ao estado 11
+    codigo       ir ao estado 12
+    atrib        ir ao estado 13
+    condicional  ir ao estado 14
+    laco         ir ao estado 15
+    declara      ir ao estado 16
+    tipo         ir ao estado 17
+    print        ir ao estado 18
+    read         ir ao estado 19
+
+
+Estado 1
+
+   40 laco: FOR . LPAR atrib condicoes PEV ID cremento RPAR LCHAVES codigos RCHAVES
+   41     | FOR . LPAR atrib condicoes PEV ID cremento RPAR codigo
+
+    LPAR  deslocar, e ir ao estado 20
+
+
+Estado 2
+
+    9 atrib: ID . ATRIB expr PEV
+   10      | ID . LCOLCHETES expr RCOLCHETES ATRIB expr PEV
+
+    ATRIB       deslocar, e ir ao estado 21
+    LCOLCHETES  deslocar, e ir ao estado 22
+
+
+Estado 3
+
+   22 condicional: IF . LPAR condicoes RPAR LCHAVES codigos RCHAVES
+   23            | IF . LPAR condicoes RPAR codigo
+   24            | IF . LPAR condicoes RPAR LCHAVES codigos RCHAVES ELSE LCHAVES codigos RCHAVES
+   25            | IF . LPAR condicoes RPAR LCHAVES codigos RCHAVES ELSE codigo
+
+    LPAR  deslocar, e ir ao estado 23
+
+
+Estado 4
+
+   42 laco: WHILE . LPAR condicoes RPAR LCHAVES codigos RCHAVES
+
+    LPAR  deslocar, e ir ao estado 24
+
+
+Estado 5
+
+   46 tipo: CHAR .
+
+    $padrão  reduzir usando a regra 46 (tipo)
+
+
+Estado 6
+
+   49 tipo: STRING .
+
+    $padrão  reduzir usando a regra 49 (tipo)
+
+
+Estado 7
+
+   47 tipo: INT .
+
+    $padrão  reduzir usando a regra 47 (tipo)
+
+
+Estado 8
+
+   48 tipo: FLOAT .
+
+    $padrão  reduzir usando a regra 48 (tipo)
+
+
+Estado 9
+
+   60 print: PRINTF . LPAR ASPASDUPLAS mensagens ASPASDUPLAS RPAR PEV
+   61      | PRINTF . LPAR ASPASDUPLAS mensagens ASPASDUPLAS VIRGULA expr RPAR PEV
+   62      | PRINTF . LPAR expr RPAR PEV
+
+    LPAR  deslocar, e ir ao estado 25
+
+
+Estado 10
+
+   63 read: SCANF . LPAR mensagem VIRGULA ID RPAR PEV
+   64     | SCANF . LPAR ID RPAR PEV
+
+    LPAR  deslocar, e ir ao estado 26
+
+
+Estado 11
+
+    0 $accept: codigos . $end
+
+    $end  deslocar, e ir ao estado 27
+
+
+Estado 12
+
+    1 codigos: codigo .
+    2        | codigo . codigos
+
+    FOR     deslocar, e ir ao estado 1
+    ID      deslocar, e ir ao estado 2
+    IF      deslocar, e ir ao estado 3
+    WHILE   deslocar, e ir ao estado 4
+    CHAR    deslocar, e ir ao estado 5
+    STRING  deslocar, e ir ao estado 6
+    INT     deslocar, e ir ao estado 7
+    FLOAT   deslocar, e ir ao estado 8
+    PRINTF  deslocar, e ir ao estado 9
+    SCANF   deslocar, e ir ao estado 10
+
+    $padrão  reduzir usando a regra 1 (codigos)
+
+    codigos      ir ao estado 28
+    codigo       ir ao estado 12
+    atrib        ir ao estado 13
+    condicional  ir ao estado 14
+    laco         ir ao estado 15
+    declara      ir ao estado 16
+    tipo         ir ao estado 17
+    print        ir ao estado 18
+    read         ir ao estado 19
+
+
+Estado 13
+
+    3 codigo: atrib .
+
+    $padrão  reduzir usando a regra 3 (codigo)
+
+
+Estado 14
+
+    5 codigo: condicional .
+
+    $padrão  reduzir usando a regra 5 (codigo)
+
+
+Estado 15
+
+    4 codigo: laco .
+
+    $padrão  reduzir usando a regra 4 (codigo)
+
+
+Estado 16
+
+    6 codigo: declara .
+
+    $padrão  reduzir usando a regra 6 (codigo)
+
+
+Estado 17
+
+   43 declara: tipo . ID PEV
+   44        | tipo . ID LCOLCHETES NUM RCOLCHETES PEV
+   45        | tipo . ID ATRIB expr PEV
+
+    ID  deslocar, e ir ao estado 29
+
+
+Estado 18
+
+    7 codigo: print .
+
+    $padrão  reduzir usando a regra 7 (codigo)
+
+
+Estado 19
+
+    8 codigo: read .
+
+    $padrão  reduzir usando a regra 8 (codigo)
+
+
+Estado 20
+
+   40 laco: FOR LPAR . atrib condicoes PEV ID cremento RPAR LCHAVES codigos RCHAVES
+   41     | FOR LPAR . atrib condicoes PEV ID cremento RPAR codigo
+
+    ID  deslocar, e ir ao estado 2
+
+    atrib  ir ao estado 30
+
+
+Estado 21
+
+    9 atrib: ID ATRIB . expr PEV
+
+    LPAR  deslocar, e ir ao estado 31
+    NUM   deslocar, e ir ao estado 32
+    ID    deslocar, e ir ao estado 33
+
+    expr   ir ao estado 34
+    termo  ir ao estado 35
+    fator  ir ao estado 36
+
+
+Estado 22
+
+   10 atrib: ID LCOLCHETES . expr RCOLCHETES ATRIB expr PEV
+
+    LPAR  deslocar, e ir ao estado 31
+    NUM   deslocar, e ir ao estado 32
+    ID    deslocar, e ir ao estado 33
+
+    expr   ir ao estado 37
+    termo  ir ao estado 35
+    fator  ir ao estado 36
+
+
+Estado 23
+
+   22 condicional: IF LPAR . condicoes RPAR LCHAVES codigos RCHAVES
+   23            | IF LPAR . condicoes RPAR codigo
+   24            | IF LPAR . condicoes RPAR LCHAVES codigos RCHAVES ELSE LCHAVES codigos RCHAVES
+   25            | IF LPAR . condicoes RPAR LCHAVES codigos RCHAVES ELSE codigo
+
+    LPAR  deslocar, e ir ao estado 31
+    NOT   deslocar, e ir ao estado 38
+    NUM   deslocar, e ir ao estado 32
+    ID    deslocar, e ir ao estado 33
+
+    expr       ir ao estado 39
+    termo      ir ao estado 35
+    fator      ir ao estado 36
+    condicoes  ir ao estado 40
+    condicao   ir ao estado 41
+
+
+Estado 24
+
+   42 laco: WHILE LPAR . condicoes RPAR LCHAVES codigos RCHAVES
+
+    LPAR  deslocar, e ir ao estado 31
+    NOT   deslocar, e ir ao estado 38
+    NUM   deslocar, e ir ao estado 32
+    ID    deslocar, e ir ao estado 33
+
+    expr       ir ao estado 39
+    termo      ir ao estado 35
+    fator      ir ao estado 36
+    condicoes  ir ao estado 42
+    condicao   ir ao estado 41
+
+
+Estado 25
+
+   60 print: PRINTF LPAR . ASPASDUPLAS mensagens ASPASDUPLAS RPAR PEV
+   61      | PRINTF LPAR . ASPASDUPLAS mensagens ASPASDUPLAS VIRGULA expr RPAR PEV
+   62      | PRINTF LPAR . expr RPAR PEV
+
+    LPAR         deslocar, e ir ao estado 31
+    NUM          deslocar, e ir ao estado 32
+    ID           deslocar, e ir ao estado 33
+    ASPASDUPLAS  deslocar, e ir ao estado 43
+
+    expr   ir ao estado 44
+    termo  ir ao estado 35
+    fator  ir ao estado 36
+
+
+Estado 26
+
+   63 read: SCANF LPAR . mensagem VIRGULA ID RPAR PEV
+   64     | SCANF LPAR . ID RPAR PEV
+
+    PORCENTO  deslocar, e ir ao estado 45
+    LPAR      deslocar, e ir ao estado 31
+    AND       deslocar, e ir ao estado 46
+    OR        deslocar, e ir ao estado 47
+    NOT       deslocar, e ir ao estado 48
+    NUM       deslocar, e ir ao estado 32
+    ID        deslocar, e ir ao estado 49
+    MULT      deslocar, e ir ao estado 50
+    VIRGULA   deslocar, e ir ao estado 51
+    ESPECIAL  deslocar, e ir ao estado 52
+
+    fator     ir ao estado 53
+    mensagem  ir ao estado 54
+
+
+Estado 27
+
+    0 $accept: codigos $end .
+
+    $padrão  aceitar
+
+
+Estado 28
+
+    2 codigos: codigo codigos .
+
+    $padrão  reduzir usando a regra 2 (codigos)
+
+
+Estado 29
+
+   43 declara: tipo ID . PEV
+   44        | tipo ID . LCOLCHETES NUM RCOLCHETES PEV
+   45        | tipo ID . ATRIB expr PEV
+
+    PEV         deslocar, e ir ao estado 55
+    ATRIB       deslocar, e ir ao estado 56
+    LCOLCHETES  deslocar, e ir ao estado 57
+
+
+Estado 30
+
+   40 laco: FOR LPAR atrib . condicoes PEV ID cremento RPAR LCHAVES codigos RCHAVES
+   41     | FOR LPAR atrib . condicoes PEV ID cremento RPAR codigo
+
+    LPAR  deslocar, e ir ao estado 31
+    NOT   deslocar, e ir ao estado 38
+    NUM   deslocar, e ir ao estado 32
+    ID    deslocar, e ir ao estado 33
+
+    expr       ir ao estado 39
+    termo      ir ao estado 35
+    fator      ir ao estado 36
+    condicoes  ir ao estado 58
+    condicao   ir ao estado 41
+
+
+Estado 31
+
+   20 fator: LPAR . expr RPAR
+
+    LPAR  deslocar, e ir ao estado 31
+    NUM   deslocar, e ir ao estado 32
+    ID    deslocar, e ir ao estado 33
+
+    expr   ir ao estado 59
+    termo  ir ao estado 35
+    fator  ir ao estado 36
+
+
+Estado 32
+
+   19 fator: NUM .
+
+    $padrão  reduzir usando a regra 19 (fator)
+
+
+Estado 33
+
+   18 fator: ID .
+   21      | ID . LCOLCHETES expr RCOLCHETES
+
+    LCOLCHETES  deslocar, e ir ao estado 60
+
+    $padrão  reduzir usando a regra 18 (fator)
+
+
+Estado 34
+
+    9 atrib: ID ATRIB expr . PEV
+   11 expr: expr . MAIS termo
+   12     | expr . MENOS termo
+
+    MAIS   deslocar, e ir ao estado 61
+    MENOS  deslocar, e ir ao estado 62
+    PEV    deslocar, e ir ao estado 63
+
+
+Estado 35
+
+   13 expr: termo .
+   14 termo: termo . DIV fator
+   15      | termo . MULT fator
+   16      | termo . PORCENTO fator
+
+    PORCENTO  deslocar, e ir ao estado 64
+    DIV       deslocar, e ir ao estado 65
+    MULT      deslocar, e ir ao estado 66
+
+    $padrão  reduzir usando a regra 13 (expr)
+
+
+Estado 36
+
+   17 termo: fator .
+
+    $padrão  reduzir usando a regra 17 (termo)
+
+
+Estado 37
+
+   10 atrib: ID LCOLCHETES expr . RCOLCHETES ATRIB expr PEV
+   11 expr: expr . MAIS termo
+   12     | expr . MENOS termo
+
+    MAIS        deslocar, e ir ao estado 61
+    MENOS       deslocar, e ir ao estado 62
+    RCOLCHETES  deslocar, e ir ao estado 67
+
+
+Estado 38
+
+   29 condicoes: NOT . condicoes
+
+    LPAR  deslocar, e ir ao estado 31
+    NOT   deslocar, e ir ao estado 38
+    NUM   deslocar, e ir ao estado 32
+    ID    deslocar, e ir ao estado 33
+
+    expr       ir ao estado 39
+    termo      ir ao estado 35
+    fator      ir ao estado 36
+    condicoes  ir ao estado 68
+    condicao   ir ao estado 41
+
+
+Estado 39
+
+   11 expr: expr . MAIS termo
+   12     | expr . MENOS termo
+   30 condicao: expr . comparacao expr
+   31         | expr .
+
+    MAIS        deslocar, e ir ao estado 61
+    MENOS       deslocar, e ir ao estado 62
+    MENOR       deslocar, e ir ao estado 69
+    MAIOR       deslocar, e ir ao estado 70
+    MENORIGUAL  deslocar, e ir ao estado 71
+    MAIORIGUAL  deslocar, e ir ao estado 72
+    NOT         deslocar, e ir ao estado 73
+    IGUAL       deslocar, e ir ao estado 74
+
+    $padrão  reduzir usando a regra 31 (condicao)
+
+    comparacao  ir ao estado 75
+
+
+Estado 40
+
+   22 condicional: IF LPAR condicoes . RPAR LCHAVES codigos RCHAVES
+   23            | IF LPAR condicoes . RPAR codigo
+   24            | IF LPAR condicoes . RPAR LCHAVES codigos RCHAVES ELSE LCHAVES codigos RCHAVES
+   25            | IF LPAR condicoes . RPAR LCHAVES codigos RCHAVES ELSE codigo
+
+    RPAR  deslocar, e ir ao estado 76
+
+
+Estado 41
+
+   26 condicoes: condicao .
+   27          | condicao . OR condicoes
+   28          | condicao . AND condicoes
+
+    AND  deslocar, e ir ao estado 77
+    OR   deslocar, e ir ao estado 78
+
+    $padrão  reduzir usando a regra 26 (condicoes)
+
+
+Estado 42
+
+   42 laco: WHILE LPAR condicoes . RPAR LCHAVES codigos RCHAVES
+
+    RPAR  deslocar, e ir ao estado 79
+
+
+Estado 43
+
+   60 print: PRINTF LPAR ASPASDUPLAS . mensagens ASPASDUPLAS RPAR PEV
+   61      | PRINTF LPAR ASPASDUPLAS . mensagens ASPASDUPLAS VIRGULA expr RPAR PEV
+
+    PORCENTO  deslocar, e ir ao estado 45
+    LPAR      deslocar, e ir ao estado 31
+    AND       deslocar, e ir ao estado 46
+    OR        deslocar, e ir ao estado 47
+    NOT       deslocar, e ir ao estado 48
+    NUM       deslocar, e ir ao estado 32
+    ID        deslocar, e ir ao estado 33
+    MULT      deslocar, e ir ao estado 50
+    VIRGULA   deslocar, e ir ao estado 51
+    ESPECIAL  deslocar, e ir ao estado 52
+
+    fator      ir ao estado 53
+    mensagens  ir ao estado 80
+    mensagem   ir ao estado 81
+
+
+Estado 44
+
+   11 expr: expr . MAIS termo
+   12     | expr . MENOS termo
+   62 print: PRINTF LPAR expr . RPAR PEV
+
+    MAIS   deslocar, e ir ao estado 61
+    MENOS  deslocar, e ir ao estado 62
+    RPAR   deslocar, e ir ao estado 82
+
+
+Estado 45
+
+   56 mensagem: PORCENTO .
+
+    $padrão  reduzir usando a regra 56 (mensagem)
+
+
+Estado 46
+
+   58 mensagem: AND .
+
+    $padrão  reduzir usando a regra 58 (mensagem)
+
+
+Estado 47
+
+   59 mensagem: OR .
+
+    $padrão  reduzir usando a regra 59 (mensagem)
+
+
+Estado 48
+
+   55 mensagem: NOT .
+
+    $padrão  reduzir usando a regra 55 (mensagem)
+
+
+Estado 49
+
+   18 fator: ID .
+   21      | ID . LCOLCHETES expr RCOLCHETES
+   64 read: SCANF LPAR ID . RPAR PEV
+
+    RPAR        deslocar, e ir ao estado 83
+    LCOLCHETES  deslocar, e ir ao estado 60
+
+    $padrão  reduzir usando a regra 18 (fator)
+
+
+Estado 50
+
+   57 mensagem: MULT .
+
+    $padrão  reduzir usando a regra 57 (mensagem)
+
+
+Estado 51
+
+   54 mensagem: VIRGULA .
+
+    $padrão  reduzir usando a regra 54 (mensagem)
+
+
+Estado 52
+
+   53 mensagem: ESPECIAL .
+
+    $padrão  reduzir usando a regra 53 (mensagem)
+
+
+Estado 53
+
+   52 mensagem: fator .
+
+    $padrão  reduzir usando a regra 52 (mensagem)
+
+
+Estado 54
+
+   63 read: SCANF LPAR mensagem . VIRGULA ID RPAR PEV
+
+    VIRGULA  deslocar, e ir ao estado 84
+
+
+Estado 55
+
+   43 declara: tipo ID PEV .
+
+    $padrão  reduzir usando a regra 43 (declara)
+
+
+Estado 56
+
+   45 declara: tipo ID ATRIB . expr PEV
+
+    LPAR  deslocar, e ir ao estado 31
+    NUM   deslocar, e ir ao estado 32
+    ID    deslocar, e ir ao estado 33
+
+    expr   ir ao estado 85
+    termo  ir ao estado 35
+    fator  ir ao estado 36
+
+
+Estado 57
+
+   44 declara: tipo ID LCOLCHETES . NUM RCOLCHETES PEV
+
+    NUM  deslocar, e ir ao estado 86
+
+
+Estado 58
+
+   40 laco: FOR LPAR atrib condicoes . PEV ID cremento RPAR LCHAVES codigos RCHAVES
+   41     | FOR LPAR atrib condicoes . PEV ID cremento RPAR codigo
+
+    PEV  deslocar, e ir ao estado 87
+
+
+Estado 59
+
+   11 expr: expr . MAIS termo
+   12     | expr . MENOS termo
+   20 fator: LPAR expr . RPAR
+
+    MAIS   deslocar, e ir ao estado 61
+    MENOS  deslocar, e ir ao estado 62
+    RPAR   deslocar, e ir ao estado 88
+
+
+Estado 60
+
+   21 fator: ID LCOLCHETES . expr RCOLCHETES
+
+    LPAR  deslocar, e ir ao estado 31
+    NUM   deslocar, e ir ao estado 32
+    ID    deslocar, e ir ao estado 33
+
+    expr   ir ao estado 89
+    termo  ir ao estado 35
+    fator  ir ao estado 36
+
+
+Estado 61
+
+   11 expr: expr MAIS . termo
+
+    LPAR  deslocar, e ir ao estado 31
+    NUM   deslocar, e ir ao estado 32
+    ID    deslocar, e ir ao estado 33
+
+    termo  ir ao estado 90
+    fator  ir ao estado 36
+
+
+Estado 62
+
+   12 expr: expr MENOS . termo
+
+    LPAR  deslocar, e ir ao estado 31
+    NUM   deslocar, e ir ao estado 32
+    ID    deslocar, e ir ao estado 33
+
+    termo  ir ao estado 91
+    fator  ir ao estado 36
+
+
+Estado 63
+
+    9 atrib: ID ATRIB expr PEV .
+
+    $padrão  reduzir usando a regra 9 (atrib)
+
+
+Estado 64
+
+   16 termo: termo PORCENTO . fator
+
+    LPAR  deslocar, e ir ao estado 31
+    NUM   deslocar, e ir ao estado 32
+    ID    deslocar, e ir ao estado 33
+
+    fator  ir ao estado 92
+
+
+Estado 65
+
+   14 termo: termo DIV . fator
+
+    LPAR  deslocar, e ir ao estado 31
+    NUM   deslocar, e ir ao estado 32
+    ID    deslocar, e ir ao estado 33
+
+    fator  ir ao estado 93
+
+
+Estado 66
+
+   15 termo: termo MULT . fator
+
+    LPAR  deslocar, e ir ao estado 31
+    NUM   deslocar, e ir ao estado 32
+    ID    deslocar, e ir ao estado 33
+
+    fator  ir ao estado 94
+
+
+Estado 67
+
+   10 atrib: ID LCOLCHETES expr RCOLCHETES . ATRIB expr PEV
+
+    ATRIB  deslocar, e ir ao estado 95
+
+
+Estado 68
+
+   29 condicoes: NOT condicoes .
+
+    $padrão  reduzir usando a regra 29 (condicoes)
+
+
+Estado 69
+
+   37 comparacao: MENOR .
+
+    $padrão  reduzir usando a regra 37 (comparacao)
+
+
+Estado 70
+
+   36 comparacao: MAIOR .
+
+    $padrão  reduzir usando a regra 36 (comparacao)
+
+
+Estado 71
+
+   35 comparacao: MENORIGUAL .
+
+    $padrão  reduzir usando a regra 35 (comparacao)
+
+
+Estado 72
+
+   34 comparacao: MAIORIGUAL .
+
+    $padrão  reduzir usando a regra 34 (comparacao)
+
+
+Estado 73
+
+   33 comparacao: NOT . ATRIB
+
+    ATRIB  deslocar, e ir ao estado 96
+
+
+Estado 74
+
+   32 comparacao: IGUAL .
+
+    $padrão  reduzir usando a regra 32 (comparacao)
+
+
+Estado 75
+
+   30 condicao: expr comparacao . expr
+
+    LPAR  deslocar, e ir ao estado 31
+    NUM   deslocar, e ir ao estado 32
+    ID    deslocar, e ir ao estado 33
+
+    expr   ir ao estado 97
+    termo  ir ao estado 35
+    fator  ir ao estado 36
+
+
+Estado 76
+
+   22 condicional: IF LPAR condicoes RPAR . LCHAVES codigos RCHAVES
+   23            | IF LPAR condicoes RPAR . codigo
+   24            | IF LPAR condicoes RPAR . LCHAVES codigos RCHAVES ELSE LCHAVES codigos RCHAVES
+   25            | IF LPAR condicoes RPAR . LCHAVES codigos RCHAVES ELSE codigo
+
+    LCHAVES  deslocar, e ir ao estado 98
+    FOR      deslocar, e ir ao estado 1
+    ID       deslocar, e ir ao estado 2
+    IF       deslocar, e ir ao estado 3
+    WHILE    deslocar, e ir ao estado 4
+    CHAR     deslocar, e ir ao estado 5
+    STRING   deslocar, e ir ao estado 6
+    INT      deslocar, e ir ao estado 7
+    FLOAT    deslocar, e ir ao estado 8
+    PRINTF   deslocar, e ir ao estado 9
+    SCANF    deslocar, e ir ao estado 10
+
+    codigo       ir ao estado 99
+    atrib        ir ao estado 13
+    condicional  ir ao estado 14
+    laco         ir ao estado 15
+    declara      ir ao estado 16
+    tipo         ir ao estado 17
+    print        ir ao estado 18
+    read         ir ao estado 19
+
+
+Estado 77
+
+   28 condicoes: condicao AND . condicoes
+
+    LPAR  deslocar, e ir ao estado 31
+    NOT   deslocar, e ir ao estado 38
+    NUM   deslocar, e ir ao estado 32
+    ID    deslocar, e ir ao estado 33
+
+    expr       ir ao estado 39
+    termo      ir ao estado 35
+    fator      ir ao estado 36
+    condicoes  ir ao estado 100
+    condicao   ir ao estado 41
+
+
+Estado 78
+
+   27 condicoes: condicao OR . condicoes
+
+    LPAR  deslocar, e ir ao estado 31
+    NOT   deslocar, e ir ao estado 38
+    NUM   deslocar, e ir ao estado 32
+    ID    deslocar, e ir ao estado 33
+
+    expr       ir ao estado 39
+    termo      ir ao estado 35
+    fator      ir ao estado 36
+    condicoes  ir ao estado 101
+    condicao   ir ao estado 41
+
+
+Estado 79
+
+   42 laco: WHILE LPAR condicoes RPAR . LCHAVES codigos RCHAVES
+
+    LCHAVES  deslocar, e ir ao estado 102
+
+
+Estado 80
+
+   60 print: PRINTF LPAR ASPASDUPLAS mensagens . ASPASDUPLAS RPAR PEV
+   61      | PRINTF LPAR ASPASDUPLAS mensagens . ASPASDUPLAS VIRGULA expr RPAR PEV
+
+    ASPASDUPLAS  deslocar, e ir ao estado 103
+
+
+Estado 81
+
+   50 mensagens: mensagem . mensagens
+   51          | mensagem .
+
+    PORCENTO  deslocar, e ir ao estado 45
+    LPAR      deslocar, e ir ao estado 31
+    AND       deslocar, e ir ao estado 46
+    OR        deslocar, e ir ao estado 47
+    NOT       deslocar, e ir ao estado 48
+    NUM       deslocar, e ir ao estado 32
+    ID        deslocar, e ir ao estado 33
+    MULT      deslocar, e ir ao estado 50
+    VIRGULA   deslocar, e ir ao estado 51
+    ESPECIAL  deslocar, e ir ao estado 52
+
+    $padrão  reduzir usando a regra 51 (mensagens)
+
+    fator      ir ao estado 53
+    mensagens  ir ao estado 104
+    mensagem   ir ao estado 81
+
+
+Estado 82
+
+   62 print: PRINTF LPAR expr RPAR . PEV
+
+    PEV  deslocar, e ir ao estado 105
+
+
+Estado 83
+
+   64 read: SCANF LPAR ID RPAR . PEV
+
+    PEV  deslocar, e ir ao estado 106
+
+
+Estado 84
+
+   63 read: SCANF LPAR mensagem VIRGULA . ID RPAR PEV
+
+    ID  deslocar, e ir ao estado 107
+
+
+Estado 85
+
+   11 expr: expr . MAIS termo
+   12     | expr . MENOS termo
+   45 declara: tipo ID ATRIB expr . PEV
+
+    MAIS   deslocar, e ir ao estado 61
+    MENOS  deslocar, e ir ao estado 62
+    PEV    deslocar, e ir ao estado 108
+
+
+Estado 86
+
+   44 declara: tipo ID LCOLCHETES NUM . RCOLCHETES PEV
+
+    RCOLCHETES  deslocar, e ir ao estado 109
+
+
+Estado 87
+
+   40 laco: FOR LPAR atrib condicoes PEV . ID cremento RPAR LCHAVES codigos RCHAVES
+   41     | FOR LPAR atrib condicoes PEV . ID cremento RPAR codigo
+
+    ID  deslocar, e ir ao estado 110
+
+
+Estado 88
+
+   20 fator: LPAR expr RPAR .
+
+    $padrão  reduzir usando a regra 20 (fator)
+
+
+Estado 89
+
+   11 expr: expr . MAIS termo
+   12     | expr . MENOS termo
+   21 fator: ID LCOLCHETES expr . RCOLCHETES
+
+    MAIS        deslocar, e ir ao estado 61
+    MENOS       deslocar, e ir ao estado 62
+    RCOLCHETES  deslocar, e ir ao estado 111
+
+
+Estado 90
+
+   11 expr: expr MAIS termo .
+   14 termo: termo . DIV fator
+   15      | termo . MULT fator
+   16      | termo . PORCENTO fator
+
+    PORCENTO  deslocar, e ir ao estado 64
+    DIV       deslocar, e ir ao estado 65
+    MULT      deslocar, e ir ao estado 66
+
+    $padrão  reduzir usando a regra 11 (expr)
+
+
+Estado 91
+
+   12 expr: expr MENOS termo .
+   14 termo: termo . DIV fator
+   15      | termo . MULT fator
+   16      | termo . PORCENTO fator
+
+    PORCENTO  deslocar, e ir ao estado 64
+    DIV       deslocar, e ir ao estado 65
+    MULT      deslocar, e ir ao estado 66
+
+    $padrão  reduzir usando a regra 12 (expr)
+
+
+Estado 92
+
+   16 termo: termo PORCENTO fator .
+
+    $padrão  reduzir usando a regra 16 (termo)
+
+
+Estado 93
+
+   14 termo: termo DIV fator .
+
+    $padrão  reduzir usando a regra 14 (termo)
+
+
+Estado 94
+
+   15 termo: termo MULT fator .
+
+    $padrão  reduzir usando a regra 15 (termo)
+
+
+Estado 95
+
+   10 atrib: ID LCOLCHETES expr RCOLCHETES ATRIB . expr PEV
+
+    LPAR  deslocar, e ir ao estado 31
+    NUM   deslocar, e ir ao estado 32
+    ID    deslocar, e ir ao estado 33
+
+    expr   ir ao estado 112
+    termo  ir ao estado 35
+    fator  ir ao estado 36
+
+
+Estado 96
+
+   33 comparacao: NOT ATRIB .
+
+    $padrão  reduzir usando a regra 33 (comparacao)
+
+
+Estado 97
+
+   11 expr: expr . MAIS termo
+   12     | expr . MENOS termo
+   30 condicao: expr comparacao expr .
+
+    MAIS   deslocar, e ir ao estado 61
+    MENOS  deslocar, e ir ao estado 62
+
+    $padrão  reduzir usando a regra 30 (condicao)
+
+
+Estado 98
+
+   22 condicional: IF LPAR condicoes RPAR LCHAVES . codigos RCHAVES
+   24            | IF LPAR condicoes RPAR LCHAVES . codigos RCHAVES ELSE LCHAVES codigos RCHAVES
+   25            | IF LPAR condicoes RPAR LCHAVES . codigos RCHAVES ELSE codigo
+
+    FOR     deslocar, e ir ao estado 1
+    ID      deslocar, e ir ao estado 2
+    IF      deslocar, e ir ao estado 3
+    WHILE   deslocar, e ir ao estado 4
+    CHAR    deslocar, e ir ao estado 5
+    STRING  deslocar, e ir ao estado 6
+    INT     deslocar, e ir ao estado 7
+    FLOAT   deslocar, e ir ao estado 8
+    PRINTF  deslocar, e ir ao estado 9
+    SCANF   deslocar, e ir ao estado 10
+
+    codigos      ir ao estado 113
+    codigo       ir ao estado 12
+    atrib        ir ao estado 13
+    condicional  ir ao estado 14
+    laco         ir ao estado 15
+    declara      ir ao estado 16
+    tipo         ir ao estado 17
+    print        ir ao estado 18
+    read         ir ao estado 19
+
+
+Estado 99
+
+   23 condicional: IF LPAR condicoes RPAR codigo .
+
+    $padrão  reduzir usando a regra 23 (condicional)
+
+
+Estado 100
+
+   28 condicoes: condicao AND condicoes .
+
+    $padrão  reduzir usando a regra 28 (condicoes)
+
+
+Estado 101
+
+   27 condicoes: condicao OR condicoes .
+
+    $padrão  reduzir usando a regra 27 (condicoes)
+
+
+Estado 102
+
+   42 laco: WHILE LPAR condicoes RPAR LCHAVES . codigos RCHAVES
+
+    FOR     deslocar, e ir ao estado 1
+    ID      deslocar, e ir ao estado 2
+    IF      deslocar, e ir ao estado 3
+    WHILE   deslocar, e ir ao estado 4
+    CHAR    deslocar, e ir ao estado 5
+    STRING  deslocar, e ir ao estado 6
+    INT     deslocar, e ir ao estado 7
+    FLOAT   deslocar, e ir ao estado 8
+    PRINTF  deslocar, e ir ao estado 9
+    SCANF   deslocar, e ir ao estado 10
+
+    codigos      ir ao estado 114
+    codigo       ir ao estado 12
+    atrib        ir ao estado 13
+    condicional  ir ao estado 14
+    laco         ir ao estado 15
+    declara      ir ao estado 16
+    tipo         ir ao estado 17
+    print        ir ao estado 18
+    read         ir ao estado 19
+
+
+Estado 103
+
+   60 print: PRINTF LPAR ASPASDUPLAS mensagens ASPASDUPLAS . RPAR PEV
+   61      | PRINTF LPAR ASPASDUPLAS mensagens ASPASDUPLAS . VIRGULA expr RPAR PEV
+
+    RPAR     deslocar, e ir ao estado 115
+    VIRGULA  deslocar, e ir ao estado 116
+
+
+Estado 104
+
+   50 mensagens: mensagem mensagens .
+
+    $padrão  reduzir usando a regra 50 (mensagens)
+
+
+Estado 105
+
+   62 print: PRINTF LPAR expr RPAR PEV .
+
+    $padrão  reduzir usando a regra 62 (print)
+
+
+Estado 106
+
+   64 read: SCANF LPAR ID RPAR PEV .
+
+    $padrão  reduzir usando a regra 64 (read)
+
+
+Estado 107
+
+   63 read: SCANF LPAR mensagem VIRGULA ID . RPAR PEV
+
+    RPAR  deslocar, e ir ao estado 117
+
+
+Estado 108
+
+   45 declara: tipo ID ATRIB expr PEV .
+
+    $padrão  reduzir usando a regra 45 (declara)
+
+
+Estado 109
+
+   44 declara: tipo ID LCOLCHETES NUM RCOLCHETES . PEV
+
+    PEV  deslocar, e ir ao estado 118
+
+
+Estado 110
+
+   40 laco: FOR LPAR atrib condicoes PEV ID . cremento RPAR LCHAVES codigos RCHAVES
+   41     | FOR LPAR atrib condicoes PEV ID . cremento RPAR codigo
+
+    MAISMAIS    deslocar, e ir ao estado 119
+    MENOSMENOS  deslocar, e ir ao estado 120
+
+    cremento  ir ao estado 121
+
+
+Estado 111
+
+   21 fator: ID LCOLCHETES expr RCOLCHETES .
+
+    $padrão  reduzir usando a regra 21 (fator)
+
+
+Estado 112
+
+   10 atrib: ID LCOLCHETES expr RCOLCHETES ATRIB expr . PEV
+   11 expr: expr . MAIS termo
+   12     | expr . MENOS termo
+
+    MAIS   deslocar, e ir ao estado 61
+    MENOS  deslocar, e ir ao estado 62
+    PEV    deslocar, e ir ao estado 122
+
+
+Estado 113
+
+   22 condicional: IF LPAR condicoes RPAR LCHAVES codigos . RCHAVES
+   24            | IF LPAR condicoes RPAR LCHAVES codigos . RCHAVES ELSE LCHAVES codigos RCHAVES
+   25            | IF LPAR condicoes RPAR LCHAVES codigos . RCHAVES ELSE codigo
+
+    RCHAVES  deslocar, e ir ao estado 123
+
+
+Estado 114
+
+   42 laco: WHILE LPAR condicoes RPAR LCHAVES codigos . RCHAVES
+
+    RCHAVES  deslocar, e ir ao estado 124
+
+
+Estado 115
+
+   60 print: PRINTF LPAR ASPASDUPLAS mensagens ASPASDUPLAS RPAR . PEV
+
+    PEV  deslocar, e ir ao estado 125
+
+
+Estado 116
+
+   61 print: PRINTF LPAR ASPASDUPLAS mensagens ASPASDUPLAS VIRGULA . expr RPAR PEV
+
+    LPAR  deslocar, e ir ao estado 31
+    NUM   deslocar, e ir ao estado 32
+    ID    deslocar, e ir ao estado 33
+
+    expr   ir ao estado 126
+    termo  ir ao estado 35
+    fator  ir ao estado 36
+
+
+Estado 117
+
+   63 read: SCANF LPAR mensagem VIRGULA ID RPAR . PEV
+
+    PEV  deslocar, e ir ao estado 127
+
+
+Estado 118
+
+   44 declara: tipo ID LCOLCHETES NUM RCOLCHETES PEV .
+
+    $padrão  reduzir usando a regra 44 (declara)
+
+
+Estado 119
+
+   38 cremento: MAISMAIS .
+
+    $padrão  reduzir usando a regra 38 (cremento)
+
+
+Estado 120
+
+   39 cremento: MENOSMENOS .
+
+    $padrão  reduzir usando a regra 39 (cremento)
+
+
+Estado 121
+
+   40 laco: FOR LPAR atrib condicoes PEV ID cremento . RPAR LCHAVES codigos RCHAVES
+   41     | FOR LPAR atrib condicoes PEV ID cremento . RPAR codigo
+
+    RPAR  deslocar, e ir ao estado 128
+
+
+Estado 122
+
+   10 atrib: ID LCOLCHETES expr RCOLCHETES ATRIB expr PEV .
+
+    $padrão  reduzir usando a regra 10 (atrib)
+
+
+Estado 123
+
+   22 condicional: IF LPAR condicoes RPAR LCHAVES codigos RCHAVES .
+   24            | IF LPAR condicoes RPAR LCHAVES codigos RCHAVES . ELSE LCHAVES codigos RCHAVES
+   25            | IF LPAR condicoes RPAR LCHAVES codigos RCHAVES . ELSE codigo
+
+    ELSE  deslocar, e ir ao estado 129
+
+    $padrão  reduzir usando a regra 22 (condicional)
+
+
+Estado 124
+
+   42 laco: WHILE LPAR condicoes RPAR LCHAVES codigos RCHAVES .
+
+    $padrão  reduzir usando a regra 42 (laco)
+
+
+Estado 125
+
+   60 print: PRINTF LPAR ASPASDUPLAS mensagens ASPASDUPLAS RPAR PEV .
+
+    $padrão  reduzir usando a regra 60 (print)
+
+
+Estado 126
+
+   11 expr: expr . MAIS termo
+   12     | expr . MENOS termo
+   61 print: PRINTF LPAR ASPASDUPLAS mensagens ASPASDUPLAS VIRGULA expr . RPAR PEV
+
+    MAIS   deslocar, e ir ao estado 61
+    MENOS  deslocar, e ir ao estado 62
+    RPAR   deslocar, e ir ao estado 130
+
+
+Estado 127
+
+   63 read: SCANF LPAR mensagem VIRGULA ID RPAR PEV .
+
+    $padrão  reduzir usando a regra 63 (read)
+
+
+Estado 128
+
+   40 laco: FOR LPAR atrib condicoes PEV ID cremento RPAR . LCHAVES codigos RCHAVES
+   41     | FOR LPAR atrib condicoes PEV ID cremento RPAR . codigo
+
+    LCHAVES  deslocar, e ir ao estado 131
+    FOR      deslocar, e ir ao estado 1
+    ID       deslocar, e ir ao estado 2
+    IF       deslocar, e ir ao estado 3
+    WHILE    deslocar, e ir ao estado 4
+    CHAR     deslocar, e ir ao estado 5
+    STRING   deslocar, e ir ao estado 6
+    INT      deslocar, e ir ao estado 7
+    FLOAT    deslocar, e ir ao estado 8
+    PRINTF   deslocar, e ir ao estado 9
+    SCANF    deslocar, e ir ao estado 10
+
+    codigo       ir ao estado 132
+    atrib        ir ao estado 13
+    condicional  ir ao estado 14
+    laco         ir ao estado 15
+    declara      ir ao estado 16
+    tipo         ir ao estado 17
+    print        ir ao estado 18
+    read         ir ao estado 19
+
+
+Estado 129
+
+   24 condicional: IF LPAR condicoes RPAR LCHAVES codigos RCHAVES ELSE . LCHAVES codigos RCHAVES
+   25            | IF LPAR condicoes RPAR LCHAVES codigos RCHAVES ELSE . codigo
+
+    LCHAVES  deslocar, e ir ao estado 133
+    FOR      deslocar, e ir ao estado 1
+    ID       deslocar, e ir ao estado 2
+    IF       deslocar, e ir ao estado 3
+    WHILE    deslocar, e ir ao estado 4
+    CHAR     deslocar, e ir ao estado 5
+    STRING   deslocar, e ir ao estado 6
+    INT      deslocar, e ir ao estado 7
+    FLOAT    deslocar, e ir ao estado 8
+    PRINTF   deslocar, e ir ao estado 9
+    SCANF    deslocar, e ir ao estado 10
+
+    codigo       ir ao estado 134
+    atrib        ir ao estado 13
+    condicional  ir ao estado 14
+    laco         ir ao estado 15
+    declara      ir ao estado 16
+    tipo         ir ao estado 17
+    print        ir ao estado 18
+    read         ir ao estado 19
+
+
+Estado 130
+
+   61 print: PRINTF LPAR ASPASDUPLAS mensagens ASPASDUPLAS VIRGULA expr RPAR . PEV
+
+    PEV  deslocar, e ir ao estado 135
+
+
+Estado 131
+
+   40 laco: FOR LPAR atrib condicoes PEV ID cremento RPAR LCHAVES . codigos RCHAVES
+
+    FOR     deslocar, e ir ao estado 1
+    ID      deslocar, e ir ao estado 2
+    IF      deslocar, e ir ao estado 3
+    WHILE   deslocar, e ir ao estado 4
+    CHAR    deslocar, e ir ao estado 5
+    STRING  deslocar, e ir ao estado 6
+    INT     deslocar, e ir ao estado 7
+    FLOAT   deslocar, e ir ao estado 8
+    PRINTF  deslocar, e ir ao estado 9
+    SCANF   deslocar, e ir ao estado 10
+
+    codigos      ir ao estado 136
+    codigo       ir ao estado 12
+    atrib        ir ao estado 13
+    condicional  ir ao estado 14
+    laco         ir ao estado 15
+    declara      ir ao estado 16
+    tipo         ir ao estado 17
+    print        ir ao estado 18
+    read         ir ao estado 19
+
+
+Estado 132
+
+   41 laco: FOR LPAR atrib condicoes PEV ID cremento RPAR codigo .
+
+    $padrão  reduzir usando a regra 41 (laco)
+
+
+Estado 133
+
+   24 condicional: IF LPAR condicoes RPAR LCHAVES codigos RCHAVES ELSE LCHAVES . codigos RCHAVES
+
+    FOR     deslocar, e ir ao estado 1
+    ID      deslocar, e ir ao estado 2
+    IF      deslocar, e ir ao estado 3
+    WHILE   deslocar, e ir ao estado 4
+    CHAR    deslocar, e ir ao estado 5
+    STRING  deslocar, e ir ao estado 6
+    INT     deslocar, e ir ao estado 7
+    FLOAT   deslocar, e ir ao estado 8
+    PRINTF  deslocar, e ir ao estado 9
+    SCANF   deslocar, e ir ao estado 10
+
+    codigos      ir ao estado 137
+    codigo       ir ao estado 12
+    atrib        ir ao estado 13
+    condicional  ir ao estado 14
+    laco         ir ao estado 15
+    declara      ir ao estado 16
+    tipo         ir ao estado 17
+    print        ir ao estado 18
+    read         ir ao estado 19
+
+
+Estado 134
+
+   25 condicional: IF LPAR condicoes RPAR LCHAVES codigos RCHAVES ELSE codigo .
+
+    $padrão  reduzir usando a regra 25 (condicional)
+
+
+Estado 135
+
+   61 print: PRINTF LPAR ASPASDUPLAS mensagens ASPASDUPLAS VIRGULA expr RPAR PEV .
+
+    $padrão  reduzir usando a regra 61 (print)
+
+
+Estado 136
+
+   40 laco: FOR LPAR atrib condicoes PEV ID cremento RPAR LCHAVES codigos . RCHAVES
+
+    RCHAVES  deslocar, e ir ao estado 138
+
+
+Estado 137
+
+   24 condicional: IF LPAR condicoes RPAR LCHAVES codigos RCHAVES ELSE LCHAVES codigos . RCHAVES
+
+    RCHAVES  deslocar, e ir ao estado 139
+
+
+Estado 138
+
+   40 laco: FOR LPAR atrib condicoes PEV ID cremento RPAR LCHAVES codigos RCHAVES .
+
+    $padrão  reduzir usando a regra 40 (laco)
+
+
+Estado 139
+
+   24 condicional: IF LPAR condicoes RPAR LCHAVES codigos RCHAVES ELSE LCHAVES codigos RCHAVES .
+
+    $padrão  reduzir usando a regra 24 (condicional)

@@ -1,0 +1,14 @@
+Gabriel Tomazini Marani
+Paulo Victor Nogueira Rodriges
+Pedro Augusto Senger Piana
+
+**Ideia de projeto**
+- A ideia foi criar uma linguagem c, com palavras reservadas e delimitadores (,{,[ invertidos;
+- Nomeamos a linguagem de --c porque é mais limitada que o c padrão e é invertida;
+
+** Restrições da linguagem: **
+- Comando ftnirp (printf) só mostra (01) texto ou (01) variável, não é possível concatenar várias variáveis
+com pedaços de texto, para isso é necessário vários comandos ftnirp;
+- Cada declaração de variável ou vetor deve ocupar uma linha cada, não é possível declarar várias variáveis
+do mesmo tipo em uma única linha; 
+- Não é possível mostrar mensagens(ftnirp) ou comentários com caracteres especiais da língua portuguesa, como palavras com acento;

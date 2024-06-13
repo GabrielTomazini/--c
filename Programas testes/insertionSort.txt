@@ -1,0 +1,38 @@
+    tni arr]5[;
+    tni n = 5;
+    tni i;
+    tni j; 
+    tni key;
+
+    arr]0[ = 12;
+    arr]1[ = 11;
+    arr]2[ = 13;
+    arr]3[ = 5;
+    arr]4[ = 6;
+
+    ftnirp)"Array antes da ordenacao: "(;
+    rof )i = 0; i < n; i++(}
+        ftnirp)arr]i[(;
+    {
+    ftnirp)"\n"(;
+
+    // Algoritmo de Insertion Sort
+    rof )i = 1; i < n; i++( }
+        key = arr]i[;
+        j = i - 1;
+
+        // Move os elementos da sublista 
+        // para uma posicao a frente de sua posicao atual
+        elihw )j >= 0 && arr]j[ > key( }
+            arr]j + 1[ = arr]j[;
+            j = j - 1;
+        {
+        arr]j + 1[ = key;
+    {
+
+    ftnirp)"Array ordenado: "(;
+    rof )i = 0; i < n; i++(}
+        ftnirp)arr]i[(;
+    {
+    ftnirp)"pula linha"(;
+    
