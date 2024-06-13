@@ -13,7 +13,7 @@ fi)a > b && a > c(
 {fi)b > a && b > c(}
     ftnirp)"O maior numero e: "(;
     ftnirp)b(;
-{ esle}
+{fi)c > b && c >a(}
     ftnirp)"O maior numero e: "(;
     ftnirp)c(;
 {

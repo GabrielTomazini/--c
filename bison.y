@@ -287,7 +287,7 @@ read : SCANF LPAR ID RPAR PEV
 %%
 
 int main(int argc, char *argv[]) {
-    yyin = fopen("programa.c", "r");
+    yyin = fopen("programa.cpp", "r");
     if (!yyin) {
         perror("Erro ao abrir o arquivo");
         return 1;
