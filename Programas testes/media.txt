@@ -1,0 +1,17 @@
+tni primeira;
+tni segunda;
+tni media;
+
+fnacs)primeira(;
+
+fnacs)segunda(;
+
+media = )primeira + segunda( / 2;
+
+ftnirp)"A media de "(;
+ftnirp)primeira(;
+ftnirp)" com "(;
+ftnirp)segunda(;
+ftnirp)" eh "(;
+ftnirp)media(;
+ftnirp)"\n"(;

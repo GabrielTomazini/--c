@@ -1,0 +1,16 @@
+// Le dois numeros e imprime o maior (versao sem else)
+
+tni a;
+tni b;
+tni maior;
+fnacs)a(;
+fnacs)b(;
+maior = a;
+
+fi )b > maior(}
+    maior = b;
+{
+
+    ftnirp)"O maior eh: "(;
+    ftnirp)maior(;
+    ftnirp)"\n"(;

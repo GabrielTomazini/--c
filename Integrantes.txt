@@ -11,4 +11,4 @@ Pedro Augusto Senger Piana
 com pedaços de texto, para isso é necessário vários comandos ftnirp;
 - Cada declaração de variável ou vetor deve ocupar uma linha cada, não é possível declarar várias variáveis
 do mesmo tipo em uma única linha; 
-- Não é possível mostrar mensagens(ftnirp) ou comentários com caracteres especiais da língua portuguesa, como palavras com acento;
+- É necessário o uso de delimitadores mesmo que a instrução tenha apenas uma linha;

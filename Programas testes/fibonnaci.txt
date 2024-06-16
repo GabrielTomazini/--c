@@ -1,13 +1,14 @@
-tni n = 10;
+tni n;
 tni a = 0;
+tni i;
 tni b = 1;
 tni next;
 
-ftnirp )"teste"(;
-ftnirp )n(;
+fnacs )n(;
 
 rof)i=0; i < n; i++( }
     ftnirp)a(;
+    ftnirp )"\n"(;
     next = a + b;
     a = b;
     b = next;

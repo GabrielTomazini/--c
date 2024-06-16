@@ -1,0 +1,26 @@
+mov %t0, 0
+mov %r1, %t0
+mov %t1, 1
+mov %r3, %t1
+read %r0
+mov %t2, 0
+mov %r2, %t2
+label R0
+mov %t3, %r2
+mov %t4, %r0
+less %t5, %t3, %t4
+jf %t5, R1
+mov %t6, %r1
+printv %t6
+printf "\n"
+mov %t7, %r1
+mov %t8, %r3
+add %t9, %t7, %t8
+mov %r4, %t9
+mov %t10, %r3
+mov %r1, %t10
+mov %t11, %r4
+mov %r3, %t11
+add %r2, %r2, 1
+jump R0
+label R1

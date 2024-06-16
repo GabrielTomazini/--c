@@ -1,0 +1,24 @@
+// Le 3 numeros e imprime o maior (if-else aninhado)
+
+tni a;
+tni b;
+tni c;
+fnacs)a(;
+fnacs)b(;
+fnacs)c(;
+
+fi ) a >= b && a >= c (}
+    ftnirp)"O maior eh: "(;
+    ftnirp)a(;
+    ftnirp)"\n"(;
+{ esle }
+    fi)b >= a && b >= c(}
+        ftnirp)"O maior eh: "(;
+        ftnirp)b(;
+        ftnirp)"\n"(;
+    { esle }
+        ftnirp)"O maior eh: "(;
+        ftnirp)c(;
+        ftnirp)"\n"(;
+    {
+{

@@ -1,0 +1,20 @@
+tni n;
+tni ndigs = 0;
+tni soma = 0;
+
+// Lendo o inteiro positivo
+ftnirp)"Digite um inteiro positivo: "(;
+fnacs)n(;
+
+// Calculando a soma dos dígitos e a quantidade de dígitos
+elihw )n > 0(
+}
+    soma = soma + )n % 10(;
+    ndigs++;
+    n = n/10;
+{
+// Imprimindo os resultados
+    ftnirp)"O numero tem digitos\n"(;
+    ftnirp)ndigs(;
+    ftnirp)"A soma dos digitos eh \n"(;
+    ftnirp)soma(;
