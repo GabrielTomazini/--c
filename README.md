@@ -26,4 +26,4 @@ do mesmo tipo em uma única linha;
 -./compilador <arquivo_teste> > assembly.rap
 -./raposeitor assembly.rap
 
-OBS:. Caso o programa seja rodado conforme acima, erros semânticos apareceram dentro de assembly.rap
+OBS:. Caso o programa seja rodado conforme acima, erros semânticos aparecerão dentro de assembly.rap
